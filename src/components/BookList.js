@@ -21,9 +21,9 @@ import 'reactjs-popup/dist/index.css';
     }
 
 
-    // console.log(props.bookData);
-    // console.log(props.categoriesData);
-    // console.log(props.publisherData);
+    // console.log(props.bookData)
+    // console.log(props.categoriesData)
+    // console.log(props.publisherData)
 
     const displayBookData=getBook.map(
         (bk)=>{
