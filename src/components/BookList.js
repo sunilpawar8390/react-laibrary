@@ -1,5 +1,8 @@
 import React from 'react';
 import './BookList.css' ;
+import { Button, Form} from 'react-bootstrap';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 
 
@@ -8,6 +11,14 @@ import './BookList.css' ;
     const  getBook =props.bookData;
     const  getCategory = props.categoriesData;
     const  getPublisher = props.publisherData;
+
+    const editBookDetails = ()=>{
+       console.log(getBook);
+    }
+    
+    const deleteBookDetails = ()=>{
+        alert(`this is delete book alert`);
+    }
 
 
     // console.log(props.bookData);
@@ -23,7 +34,47 @@ import './BookList.css' ;
                     <td>{bk.BookName }</td>
                     <td>{bk.CategoriesId }</td>
                     <td>{bk.PublisherId }</td>
-                    <td>{bk.Quantity }</td>     
+                    <td>{bk.Quantity }</td> 
+                    <td>
+                        <Popup  trigger={<Button > Edit</Button>} position="right center" >
+                            <div >
+                            <Form >
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>BookID</Form.Label>
+                                    <Form.Control type="text" />
+                                    
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>BookName</Form.Label>
+                                    <Form.Control type="text"  />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>CategoriesId</Form.Label>
+                                    <Form.Control type="text"  />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>PublisherId</Form.Label>
+                                    <Form.Control type="text"  />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Quantity</Form.Label>
+                                    <Form.Control type="text" />
+                                </Form.Group>
+                                
+                                <Button variant="primary" type="submit">
+                                    Update
+                                </Button>
+                            </Form>
+
+                            </div>
+                        </Popup> 
+                     </td>
+                    <td><Button onClick={deleteBookDetails}>Delete</Button></td>  
+                    
                  </tr>
                  </tbody>
                            
@@ -40,7 +91,10 @@ import './BookList.css' ;
                 <tbody>
                     <tr>
                     <td>{ct.CategoriesID }</td>
-                    <td>{ct.CategoriesName }</td>  
+                    <td>{ct.CategoriesName }</td> 
+                    <td><Button>Edit</Button></td>
+                    <td><Button>Delete</Button></td>  
+
                     </tr>                   
                 </tbody>
             )
@@ -56,11 +110,15 @@ const displayPublisherData=getPublisher.map(
                 <tr>
                 <td>{pub.PublisherId }</td>
                 <td>{pub.PublisherName }</td>
+                <td><Button>Edit</Button></td>
+                <td><Button>Delete</Button></td> 
                 </tr>
             </tbody>
         )
     }
 )
+
+
 
 
 
@@ -117,6 +175,9 @@ const displayPublisherData=getPublisher.map(
                     {displayPublisherData}
                 
           </table>
+
+          
+      
           </div>
    
   );
