@@ -1,8 +1,11 @@
 import  React,{useState} from 'react';
 import './BookList.css' ;
+import AddBook from './AddBook';
+
 import { Button, Form} from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+
 
 
 
@@ -120,7 +123,7 @@ import 'reactjs-popup/dist/index.css';
                 <td>{info.PublisherName}</td>
                 <td>{info.Quantity}</td>
                 <td>
-                        <Popup  trigger={<Button> Edit</Button>}  position="right center" >
+                        <Popup  trigger={<Button> Edit</Button>}  position="right center"  modal="true">
                             <div >
                             <Form >
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -137,31 +140,49 @@ import 'reactjs-popup/dist/index.css';
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>CategoriesName</Form.Label>
-                                    <Form.Control value={info.CategoriesName} type="text"  />
+                                    {/* <Form.Control value={info.CategoriesName} type="text"  /> */}
+                                    <div>
+                                    <select  value={info.CategoriesName} className="popup-input">
+                                        {getCategory.map((item) =>
+                                            <option>{item.CategoriesName}</option>
+                                        )}
+                                    </select>
+                                </div>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>PublisherName</Form.Label>
-                                    <Form.Control  value={info.PublisherName} type="text"  />
+                                    {/* <Form.Control  value={info.PublisherName} type="text"  /> */}
+                                    <div>
+                                    <select value={info.PublisherName} className="popup-input">
+                                        {getPublisher.map((item) =>
+                                            <option>{item.PublisherName}</option>
+                                        )}
+                                    </select>
+                                </div>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Quantity</Form.Label>
                                     <Form.Control value={info.Quantity} type="text" />
                                 </Form.Group>
-                                
+                                            <br/>
+                                      
                                 <Button variant="primary" type="submit">
                                     Update
                                 </Button>
+
+                              
                             </Form>
 
                             </div>
                         </Popup>
                         
                      </td>
-                    <td><Popup  trigger={<Button > Delete</Button>} position="right center" >
+                    <td><Popup  trigger={<Button > Delete</Button>} position="right center" modal="true">
                             <div >
-                            <h4>{ "are you sure you want to delete book: " + " " + info.BookName }</h4>
+                                <h3>Delete Book</h3><hr/>
+                            <h5>{ "are you sure you want to delete book: " + " " + info.BookName }</h5>
                                 <Button onClick={() => handleRemove(info.BookId)}>Comfirm</Button>                               
                             </div>
                         </Popup></td>
@@ -217,10 +238,14 @@ import 'reactjs-popup/dist/index.css';
 
   return (
    <div className="App">
+
+       <AddBook passPublisher={getPublisher} passCategory={getCategory}  />
         
         <h1 className="headName">Book List</h1>
 
             <h3 >BookDetails</h3>
+
+
      
             <table className="flat-table flat-table-1">
        
