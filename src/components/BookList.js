@@ -117,6 +117,7 @@ import 'reactjs-popup/dist/index.css';
           .map(x => Object.assign(x, getPublisher.find(z => z.PublisherId === x.PublisherId)))
           .map(info => (
               <tr key={info.BookId}>
+                    
                 <td>{info.BookId}</td>
                 <td>{info.BookName}</td>
                 <td>{info.CategoriesName}</td>
@@ -200,6 +201,7 @@ import 'reactjs-popup/dist/index.css';
             return(
                 <tbody>
                     <tr key={ct.CategoriesID}>
+                 
                     <td>{ct.CategoriesID }</td>
                     <td>{ct.CategoriesName }</td> 
                     
@@ -219,7 +221,7 @@ import 'reactjs-popup/dist/index.css';
         return(
             <tbody>
                 <tr key={pub.PublisherId}>
-                
+               
                 <td>{pub.PublisherId }</td>
                 <td>{pub.PublisherName }</td>
                 <td><Button>Edit</Button></td>
