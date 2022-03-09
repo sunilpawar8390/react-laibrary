@@ -1,47 +1,45 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import BookList from './components/BookList';
 import axios from 'axios';
 
 
+   
 
-function App() {
 
-  const [BooksDetails, setBookDetails]= useState([]);
-  const [CategoriesDetails, setCategoriesDetails]= useState([]);
-  const [PublisherDeatils, setPublisherDeatils]= useState([]);
+class App extends React.Component  {
 
-  useEffect(() => {
+  state = {
+    bookDataState: [],
+    categoriesDataState: [],
+    publisherDataState: []
+
+  }
+
+  componentDidMount() {
+  
+    axios.get(`http://localhost:8000/api/BooksDetails`)
+      .then(res1 => {
+        const bookDataState = res1.data;
+        this.setState({ bookDataState });
+      })
+
+      axios.get(`http://localhost:8000/api/CategoriesDetails`)
+      .then(res2 => {
+        const categoriesDataState = res2.data;
+        this.setState({ categoriesDataState });
+      })
+
+      axios.get(`http://localhost:8000/api/PublisherDeatils`)
+      .then(res => {
+        const publisherDataState = res.data;
+        this.setState({ publisherDataState });
+      })
+      
+  }
+  
 
    
-    const getBookData = async () => {
-      try {
-        const res1= await axios.get('http://localhost:8000/api/BooksDetails');
-        const res2 = await axios.get('http://localhost:8000/api/CategoriesDetails');
-        const res3 = await axios.get('http://localhost:8000/api/PublisherDeatils');
-
-      
-        const mybookdata = res1.data;
-        const mycatdata = res2.data;
-        const mypubdata = res3.data;
-
-        setBookDetails(mybookdata);
-        setCategoriesDetails(mycatdata);
-        setPublisherDeatils(mypubdata);
-      }
-      catch (error) {
-        console.log(error);
-      }
-
-
-    };
-    getBookData();
-  }, []);
-
-
- console.log(BooksDetails);
- console.log(CategoriesDetails);
- console.log(PublisherDeatils);
 
   //  const BooksDetails =  [
   //   {
@@ -116,13 +114,14 @@ function App() {
   // console.log(BooksDetails);
   // console.log(CategoriesDetails);
   // console.log(PublisherDeatils);
-
+  render() {
   return (
     <div className="App">
-     <BookList bookData={BooksDetails} categoriesData={CategoriesDetails} publisherData={PublisherDeatils} />
+     <BookList bookData={this.state.bookDataState} categoriesData={this.state.categoriesDataState} publisherData={this.state.publisherDataState}/>
 
     </div>
   );
+  }
 }
 
 export default App;
