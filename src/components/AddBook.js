@@ -4,21 +4,12 @@ import { Button, Form} from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-// import {default as UUID} from "node-uuid"
 
-
-
-
-
-
-
-const AddBook = (props) => {
-
-    const showCategories = props.passCategory;
-    const showPublisher = props.passPublisher;
+export default class AddBook extends React.Component {
 
     
-   
+   render (){
+       const  { passPublisher, passCategory} = this.props;
     return (
        
         
@@ -47,7 +38,7 @@ const AddBook = (props) => {
                                   
                                     <div>
                                     <select   className="popup-input">
-                                        {showCategories.map((c) =>
+                                        {passCategory.map((c) =>
                                             <option>{c.CategoriesName}</option>
                                             
                                         )}
@@ -62,7 +53,7 @@ const AddBook = (props) => {
                                   
                                     <div>
                                     <select   className="popup-input">
-                                        {showPublisher.map((p) =>
+                                        {passPublisher.map((p) =>
                                             <option>{p.PublisherName}</option>
                                            
                                         )}
@@ -71,11 +62,7 @@ const AddBook = (props) => {
                                     <p>Add New Publisher</p>
                                 </div>
                                 </Form.Group>
-
-                               
-
-                             
-
+                                
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Quantity</Form.Label>
                                     <Form.Control  type="text" />
@@ -92,6 +79,8 @@ const AddBook = (props) => {
         </div>
         </Popup>
     );
+
+   }
+    
 }
 
-export default AddBook;

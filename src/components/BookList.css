@@ -72,3 +72,29 @@
     box-sizing: border-box;
     }
 
+
+
+    .AddBook-popup input, .AddBook-popup select {
+        border-color:red;
+        
+    }
+    
+    .mb-3{
+        padding-top:12px;
+        width:60%;
+       position: relative;
+       left: 20%;
+     
+    }
+    
+    .AddBook-popup button {
+        position: relative;
+       left: 20%;
+       margin-bottom: 10px;
+    }
+    
+    .AddBook-popup button:hover {
+        background-color: green;
+    }
+    
+
