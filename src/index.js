@@ -1,19 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import "bootstrap/dist/css/bootstrap.min.css" ;
+import React from "react";
+import ReactDOM from "react-dom";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import FunctionExample from "./Routes/FunctionExample/FunctionExample";
+import ClassExample from "./Routes/ClassExample/ClassExample";
+import Home from "./Routes/Home";
 
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root') 
+const routing = (
+  <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/functionexample" element={<FunctionExample />} />
+      <Route path="/classexample" element={<ClassExample />} />
+    </Routes>
+  </Router>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(routing, document.getElementById("app"));
+
+if (module && module.hot) {
+  module.hot.accept();
+}
