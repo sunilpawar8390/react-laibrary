@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Button, Form, Row, Col, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form';
@@ -29,13 +29,29 @@ function EditBook() {
     }
 
     function createUser(data) {
-      console.log(data)
+      const addData = {
+        data: data
+      };
+      axios.post('http://localhost:8080/api/BooksDetails/add/' , addData)
+      .then((res) => {
+        console.log(res);
+      });
+
     }
 
     function updateUser(id, data) {
-      console.log(id);
-      console.log(data);
+      
+      const editData = {
+        id: id,
+        data: data
+      };
+      axios.post('http://localhost:8080/api/BooksDetails/edit/' , editData)
+      .then((res) => {
+        console.log(res);
+      });
+
     }
+    
 
     return (
       <Container>
