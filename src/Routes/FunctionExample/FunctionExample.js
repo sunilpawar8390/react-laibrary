@@ -1,23 +1,16 @@
-import React, { Component} from 'react';
+import React from "react";
 
-class FunctionExample extends Component {
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
 
-    componentDidMount(){
-    }
+const FunctionExample = ()=>{
 
-    render(){
-        return(
-            <div>
-                <h1>Function Page </h1>
-            </div>
 
-        )
-    }
+  return(
 
+    <div>
+
+      <h1>this is function example</h1>
+    </div>
+  )
 }
 
-export default FunctionExample
+export default FunctionExample;
