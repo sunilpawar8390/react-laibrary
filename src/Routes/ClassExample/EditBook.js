@@ -1,13 +1,19 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { Button, Form, Row, Col, Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import axios from "axios";
+import Home from "../Home";
 import "./EditBook.css";
 
 function EditBook() {
 
-  
+  const [msg, setMsg] = useState('');
+  const [exist, setExist] = useState('');
+  const [editMsg, seteditMsg] = useState('');
+
+
+
     let navigate = useNavigate();
     const { register, handleSubmit, setValue } = useForm();
     const {bookId} = useParams();
@@ -22,7 +28,7 @@ function EditBook() {
           fields.forEach(field => setValue(field, bookDataState[field]));
         });
       }
-    },[]);
+    });
 
     function onSubmit(data) {
       return isAdd ? createUser(data) : updateUser(bookId, data);
@@ -34,7 +40,10 @@ function EditBook() {
       };
       axios.post('http://localhost:8080/api/BooksDetails/add/' , addData)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.status);
+        console.log(res.data.exist);
+        setMsg(res.data.status);
+        setExist(res.data.exist);
       });
 
     }
@@ -47,17 +56,22 @@ function EditBook() {
       };
       axios.post('http://localhost:8080/api/BooksDetails/edit/' , editData)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.status);
+        seteditMsg(res.data.status);
+
       });
 
     }
     
 
     return (
+      
       <Container>
-        <Row>
+        <Home/><br/>
+        <Row><br/>
           <Col md="10">
-            <label>Edit Book Details</label>
+            <label>Add Book and Edit Book Form </label>
+           
           </Col>
           <Col md="2">
             <Button onClick={() => {navigate("/classexample")}}>Back</Button>
@@ -67,32 +81,33 @@ function EditBook() {
         <Form onSubmit={handleSubmit(onSubmit)} className="AddBook-popup">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>BookID</Form.Label>
-            <Form.Control name="BDID" type="text" {...register('BDID')} />
+            <Form.Control name="BDID" type="text"   placeholder="Enter Book Id" {...register('BDID')} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>BookName</Form.Label>
-            <Form.Control name="Bookname" type="text" {...register('Bookname')} />
+            <Form.Control name="Bookname" type="text"  placeholder="Enter Book Name" {...register('Bookname')} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Category Name</Form.Label>
-            <Form.Control name="Category" type="text" {...register('Category.Name')} />
+            <Form.Control name="Category" type="text"  placeholder="Enter Category Name" {...register('Category.Name')} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Publisher Name </Form.Label>
-            <Form.Control name="Publisher" type="text" {...register('Publisher.Name')} />
+            <Form.Control name="Publisher" type="text"  placeholder="Enter Publisher Name" {...register('Publisher.Name')} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Quantity</Form.Label>
-            <Form.Control name="quantity" type="text" {...register('quantity')} />
+            <Form.Control name="quantity" type="text"  placeholder="Add Quantity" {...register('quantity')} />
           </Form.Group>
 
           <Button variant="primary" type="submit">
             Update
           </Button>
+          <label>{msg} {exist} {editMsg}<Link to={`/classexample`}>Go to back Page</Link> </label>
         </Form>
       </Container>
     );

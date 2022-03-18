@@ -52,7 +52,7 @@ class ClassExample extends Component {
       }).then((result) => {
         result.json().then((res) => {
       
-          alert(`Are you sure you would like to delete? ` + Bookname );
+         
         this.callBookApi();
         });
       });

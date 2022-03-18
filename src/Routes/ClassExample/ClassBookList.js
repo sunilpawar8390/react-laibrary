@@ -3,6 +3,9 @@ import { Button, Row, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./ClassBookList.css";
 
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
 class ClassBookList extends Component {
   render() {
     const { bookData, categoriesData, publsiherData } = this.props;
@@ -27,21 +30,33 @@ class ClassBookList extends Component {
             </Link> */}
 
             <Link to={`/editbook/${bk.BDID}`} style={{ color: `white` }}>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
             </Link>
-
-           
           </td>
-          {/* <td>
-            <Button  onClick={() => handelClickDelete(bk.BDID, bk.Bookname)}>Delete</Button>
-          </td> */}
+
           <td>
-            <i
-              class="fa fa-trash"
-              aria-hidden="true"
-              style={{ color: `red` }}
-              onClick={() => handelClickDelete(bk.BDID, bk.Bookname)}
-            ></i>
+            <Popup
+              trigger={
+                <i
+                  class="fa fa-trash"
+                  aria-hidden="true"
+                  style={{ color: `red` }}
+                ></i>
+              }
+              position="right center"
+              modal="true"
+            >
+              <div>
+                <h3>Delete Book</h3>
+                <hr />
+                <h5>
+                  {`{are you sure you want to delete book: ${bk.Bookname}`}
+                </h5>
+                <Button onClick={() => handelClickDelete(bk.BDID, bk.Bookname)}>
+                  Comfirm
+                </Button>
+              </div>
+            </Popup>
           </td>
         </tr>
       );
@@ -82,19 +97,19 @@ class ClassBookList extends Component {
     return (
       <Container>
         <Row>
-          <Col md="10">
+          <Col md="12">
             <h3>BookList Details </h3>
           </Col>
-          <Col md="2">
+          <Col md="12">
             <Link to="/addbook">
-              <Button variant="success">Add Book</Button>
+              <Button variant="success">Add New Book</Button>
             </Link>
           </Col>
         </Row>
         <Row>
           <Col>
             <table className="flat-table flat-table-1">
-              <tr className="book-tr">
+              <tr>
                 <th>BookID</th>
                 <th>BookName</th>
                 <th>Category Name</th>
@@ -103,7 +118,6 @@ class ClassBookList extends Component {
                 <th>Quantity</th>
                 <th>Edit</th>
                 <th>Delete</th>
-
               </tr>
               {rows}
             </table>
