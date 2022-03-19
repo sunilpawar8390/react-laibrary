@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+
 import axios from "axios";
 import "./ClassExample.css";
 
 import ClassBookList from "./ClassBookList";
-import Home from "../Home"
+import Home from "../Home";
 
 class ClassExample extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class ClassExample extends Component {
     axios.get(`http://localhost:8080/api/BooksDetails`).then((res1) => {
       const bookDataState = res1.data;
       this.setState({ bookDataState });
+      console.log(bookDataState);
     });
   }
 

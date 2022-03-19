@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { Button, Form, Row, Col, Container } from "react-bootstrap";
+import { Button, Form, Row, Col, Container, FormLabel } from "react-bootstrap";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import axios from "axios";
@@ -24,6 +24,7 @@ function EditBook() {
       if(!isAdd) {
         axios.get(`http://localhost:8080/api/BooksDetails/${bookId}`).then((res1) => {
           const bookDataState = res1.data;
+          console.log(bookDataState);
           const fields = ['BDID', 'Bookname', 'Category', 'Publisher', 'quantity'];
           fields.forEach(field => setValue(field, bookDataState[field]));
         });
@@ -105,9 +106,9 @@ function EditBook() {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Update
-          </Button>
-          <label>{msg} {exist} {editMsg}<Link to={`/classexample`}>Go to back Page</Link> </label>
+          Save
+          </Button>   
+          <FormLabel>{msg} {exist} {editMsg}<Link to={`/classexample`}>Go to back Page</Link> </FormLabel>
         </Form>
       </Container>
     );
