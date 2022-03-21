@@ -12,6 +12,11 @@ function EditBook() {
   const [exist, setExist] = useState('');
   const [editMsg, seteditMsg] = useState('');
 
+//set categoriesData
+const [cat, setCat] = useState([]);
+
+//set publisherData
+const [pub, setPub] = useState([]);
 
 
     let navigate = useNavigate();
@@ -30,6 +35,26 @@ function EditBook() {
         });
       }
     });
+
+    //get categoriesData to api call.
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/categorydetails`).then((res2) => {
+      const catData = res2.data;
+      setCat(catData);
+    });
+  }, []);
+
+  //console.log(cat);
+
+  //get PublisherData to api call
+
+  useEffect(() => {
+    axios.get(`http://www.localhost:8080/api/publisherdetails`).then((res3) => {
+      const pubData = res3.data;
+      setPub(pubData);
+    });
+  }, []);
 
     function onSubmit(data) {
       return isAdd ? createUser(data) : updateUser(bookId, data);
@@ -91,14 +116,26 @@ function EditBook() {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Category Name</Form.Label>
-            <Form.Control name="Category" type="text"  placeholder="Enter Category Name" {...register('Category.Name')} />
-          </Form.Group>
+          <Form.Label>Select Category</Form.Label>
+          <select className="cat_Style" {...register("Category.Name")}>
+            <option>Select Category</option>
+            {cat.map((catItem) => {
+              return <option key={catItem._id}>{catItem.Name}</option>;
+            })}
+          </select>
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Publisher Name </Form.Label>
-            <Form.Control name="Publisher" type="text"  placeholder="Enter Publisher Name" {...register('Publisher.Name')} />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Select Publisher</Form.Label>
+          <select className="cat_Style" {...register("Publisher.Name")}>
+            <option>Select Publisher</option>
+            {pub.map((pubItem) => {
+              return <option key={pubItem._id}>{pubItem.Name}</option>;
+            })}
+          </select>
+        </Form.Group>
+
+       
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Quantity</Form.Label>

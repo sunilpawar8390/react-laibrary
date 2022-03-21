@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Container ,Button } from "react-bootstrap";
 
 const Pagination = ({ postsPerPage, totalPosts, paginate, pagenumber }) => {
