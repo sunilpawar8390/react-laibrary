@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Container } from "react-bootstrap";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import Home from "../Home";
-
 
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-const FunctionBookList = ({ posts, loading }) => {
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
+const FunctionBookList = ({ posts }) => {
+
+ 
 
 
   const rows = posts.map((bk) => {
@@ -29,7 +27,7 @@ const FunctionBookList = ({ posts, loading }) => {
           </Link> */}
 
           <Link to={`/editbook/${bk.BDID}`} style={{ color: `white` }}>
-            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <i className="fa fa-pencil" aria-hidden="true"></i>
           </Link>
         </td>
 
@@ -37,7 +35,7 @@ const FunctionBookList = ({ posts, loading }) => {
           <Popup
             trigger={
               <i
-                class="fa fa-trash"
+                className="fa fa-trash"
                 aria-hidden="true"
                 style={{ color: `red` }}
               ></i>
@@ -63,7 +61,9 @@ const FunctionBookList = ({ posts, loading }) => {
 
   return (
     <div>
-    <Home />
+
+     
+    
 <Container>
    <Row>
      <Col md="12">
