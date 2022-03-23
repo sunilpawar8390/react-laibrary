@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Row, Col, Container } from "react-bootstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-const FunctionBookList = ({ posts }) => {
+const FunctionBookList = ({ posts, ondelete }) => {
 
- 
+  const handelClickDelete = (BDID) => {
+    ondelete(BDID);
+  };
 
 
   const rows = posts.map((bk) => {
@@ -49,7 +50,7 @@ const FunctionBookList = ({ posts }) => {
               <h5>
                 {`{are you sure you want to delete book: ${bk.Bookname}`}
               </h5>
-              <Button >
+              <Button onClick={() => handelClickDelete(bk.BDID)}>
                 Comfirm
               </Button>
             </div>

@@ -30,7 +30,7 @@ class ClassBookList extends Component {
             </Link> */}
 
             <Link to={`/editbook/${bk.BDID}`} style={{ color: `white` }}>
-              <i class="fa fa-pencil" aria-hidden="true"></i>
+              <i className="fa fa-pencil" aria-hidden="true"></i>
             </Link>
           </td>
 
@@ -38,7 +38,7 @@ class ClassBookList extends Component {
             <Popup
               trigger={
                 <i
-                  class="fa fa-trash"
+                  className="fa fa-trash"
                   aria-hidden="true"
                   style={{ color: `red` }}
                 ></i>
