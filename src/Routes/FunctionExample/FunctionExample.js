@@ -16,6 +16,11 @@ const FunctionExample = () => {
   const [inputDataCategory, setinputDataCategory] = useState("");
   const [inputDataPublisher, setinputDataPublisher] = useState("");
 
+  //State For Combine Search Records
+  const [CombineinputData, setCombineinputData] = useState("");
+  const [CombineinputDataCategory, setCombineinputDataCategory] = useState("");
+  const [CombineinputDataPublisher, setCombineinputDataPublisher] = useState("");
+
   //get CategoryData to api call
   function getBookData() {
     const fetchPosts = async () => {
@@ -58,8 +63,12 @@ const FunctionExample = () => {
     getPubData();
   }, []);
 
+
+//sepratly onchange fun
   const onChangeSubmit = (event) => {
+    
     setinputData(event.target.value);
+    
   };
 
   const onChangeCategory = (event) => {
@@ -70,9 +79,24 @@ const FunctionExample = () => {
     setinputDataPublisher(event.target.value);
   };
 
-  console.log(inputData);
-  console.log(inputDataCategory);
-  console.log(inputDataPublisher);
+  //Combine onchange fun
+  const onChangeSubmitCombine = (event) => {
+    
+    setCombineinputData(event.target.value);
+    
+  };
+
+  const onChangeCategoryCombine = (event) => {
+    setCombineinputDataCategory(event.target.value);
+  };
+
+  const onChangePublisherCombine = (event) => {
+    setCombineinputDataPublisher(event.target.value);
+  };
+
+  // console.log(inputData);
+  // console.log(inputDataCategory);
+  // console.log(inputDataPublisher);
 
   const handleSubmit = (i) => {
     i.preventDefault();
@@ -89,19 +113,45 @@ const FunctionExample = () => {
         .then((res4) => {
           const searchData = res4.data;
           setPosts(searchData);
-          setinputData("");
+          //setinputData("");
         });
     } else if (inputDataPublisher){
       axios.get(`http://localhost:8080/api/BooksDetails/Search2/${inputDataPublisher}`)
       .then((res4) => {
         const searchData = res4.data;
         setPosts(searchData);
-        setinputData("");
+        //setinputData("");
       });
     }else{
       alert(`required fileds`)
     }
+   
   };
+
+  
+  const CombinehandleSubmit = (i) => {
+    // console.log(CombineinputData);
+    // console.log(CombineinputDataCategory);
+    // console.log(CombineinputDataPublisher);
+
+    i.preventDefault();
+
+    const allCombineData ={
+      Book: CombineinputData,
+      Cat: CombineinputDataCategory,
+      Pub: CombineinputDataPublisher
+    }
+    console.log(allCombineData)
+   
+      axios
+        .post("http://localhost:8080/api/BooksDetails/allCombineData/", allCombineData)
+        .then((res4) => {
+          const searchData = res4.data;
+
+          setPosts(searchData);
+        });
+
+  }
 
   return (
     <div>
@@ -116,7 +166,7 @@ const FunctionExample = () => {
                 <Form.Control
                   type="text"
                   placeholder="Enter Book Name here.."
-                  onChange={onChangeSubmit}
+                  onChange={onChangeSubmitCombine}
                 />
                 <Form.Text className="text-muted"></Form.Text>
               </Form.Group>
@@ -125,7 +175,7 @@ const FunctionExample = () => {
             <Col md="3">
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Category Search</Form.Label>
-                <select className="dropdown-style" onChange={onChangeCategory}>
+                <select className="dropdown-style" onChange={onChangeCategoryCombine}>
                   <option>Select Category</option>
                   {category.map((cat) => {
                     return <option key={cat._id}>{cat.Name}</option>;
@@ -138,7 +188,7 @@ const FunctionExample = () => {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Publisher Search</Form.Label>
 
-                <select className="dropdown-style" onChange={onChangePublisher}>
+                <select className="dropdown-style" onChange={onChangePublisherCombine}>
                   <option>Select Publisher</option>
                   {publisher.map((pub) => {
                     return <option key={pub._id}>{pub.Name}</option>;
@@ -148,7 +198,7 @@ const FunctionExample = () => {
             </Col>
 
             <Col md="3">
-              <Button onClick={handleSubmit}>Search</Button>
+              <Button onClick={CombinehandleSubmit}>Search</Button>
             </Col>
             <Col md="3">
               <Button type="reset" onClick={getBookData}>

@@ -10,7 +10,7 @@ class Home extends Component {
         <Container>
           <Row>
             <Col>
-              <h1>Laibrary Management System (React)</h1>
+              <h1>library Management System (React)</h1>
             </Col>
           </Row>
           <Row>

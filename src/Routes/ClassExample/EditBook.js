@@ -29,7 +29,7 @@ const [pub, setPub] = useState([]);
       if(!isAdd) {
         axios.get(`http://localhost:8080/api/BooksDetails/${bookId}`).then((res1) => {
           const bookDataState = res1.data;
-          console.log(bookDataState);
+         // console.log(bookDataState);
           const fields = ['BDID', 'Bookname', 'Category', 'Publisher', 'quantity'];
           fields.forEach(field => setValue(field, bookDataState[field]));
         });
@@ -80,6 +80,8 @@ const [pub, setPub] = useState([]);
         id: id,
         data: data
       };
+
+      console.log(editData);
       axios.post('http://localhost:8080/api/BooksDetails/edit/' , editData)
       .then((res) => {
         console.log(res.data.status);
